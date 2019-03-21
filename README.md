@@ -1,11 +1,11 @@
-#基于Scrapy、Scrapy-redis、Scrapyd、Gerapy 的分布式爬虫框架
+# 基于Scrapy、Scrapy-redis、Scrapyd、Gerapy 的分布式爬虫框架
 
-##一、使用scrapy创建自己的爬虫项目
+## 一、使用scrapy创建自己的爬虫项目
 
 安装pip install scrapy
 scrapy结构层级与运行生命周期在之前的内部分享中已经讲过，现不做赘述，直接再次演示示例项目。
 
-###创建项目：
+### 创建项目：
 cd到目标文件夹 
 ```
 scrapy startproject example_scrapy
@@ -156,7 +156,7 @@ from scrapy.cmdline import execute
 execute(['scrapy', 'crawl', 'film_spider'])
 ```
 
-###使用scrapy-redis调度爬虫
+### 使用scrapy-redis调度爬虫
 如果爬取的目标数据体量很大，单台机器爬取速度太慢，想分布式爬取如何操作？很简单，接下介绍如何将example_scrapy这个示例修改为可分布式部署的爬虫。
 安装scrapy-redis
 ```
@@ -230,7 +230,7 @@ myredis.lpush("film_spider:start_urls", url)
 ![运行输出](/images/image4.png)
 ![mongodb数据](/images/image5.png)
 
-####使用代理
+#### 使用代理
 频繁请求ip被封了怎么办？来个代理中间就好了。middlewares.py中添加代码（此处以我本地动态代理池为例）
 settings.py中添加动态、静态代理ip池配置
 ```
@@ -290,7 +290,7 @@ DOWNLOADER_MIDDLEWARES = {
 分布式爬虫已经写好，如何发布部署统一调度呢？接下来介绍Gerapy，一个基于Scrapyd，Scrapyd API，Django，Vue.js搭建的分布式爬虫管理框架，目前版本文档先不讲解Gerapy的源码和部署配置，仅介绍基本界面使用操作和讲解Scrapyd安装。
 
 
-##二、Scrapyd简介安装
+## 二、Scrapyd简介安装
 Scrapyd是一个用来部署和运行Scrapy项目的应用。其可以通过一个简单的Json API来部署（上传）或者控制Scrapy项目。
 Scrapyd可以用来管理多个项目，并且每个项目还可以上传多个版本，不过只有最新的版本会被使用。
 在安装并开启Scrapyd之后，它将会挂起一个服务来监听运行爬虫的请求，并且根据请求为每一个爬虫启用一个进程来运行。Scrapyd同样支持同时运行多个进程，进程的数量由max_proc和max_proc_per_cpu选项来限制。
@@ -341,7 +341,7 @@ daemonstatus.json = scrapyd.webservice.DaemonStatus
 ```
 直接调用scrapyd接口部署、调度scrapy项目这方面暂时不做说明，我们直接使用gerapy可视化操作scrapyd。
 
-##三、在master机上使用Gerapy统一管理爬虫项目
+## 三、在master机上使用Gerapy统一管理爬虫项目
 打开已经配置好Gerapy的master主机 http://192.168.0.86:8000/#/home
 可切换中文显示
 ![切换中文](/images/image7.png)
